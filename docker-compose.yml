@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    container_name: scmp.app
+    build:
+      context: _build/
+      dockerfile: app.docker
+    restart: always
+    volumes:
+      - ./_server:/usr/src/app/src
+      - ./_test:/usr/src/app/test
+    ports:
+      - "8086:8080"
+  db:
+    container_name: smpp.db
+    image: mysql:5.6
+    volumes:
+      - ./_data/:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=scmp"
+      - "MYSQL_USER=scmp"
+      - "MYSQL_PASSWORD=CABinNYQRwu8XqcRqxdxQEAG"
+      - "MYSQL_ROOT_PASSWORD=CABinNYQRwu8XqcRqxdxQEAG"
+    ports:
+        - "3306:3306"
+    restart: always
